@@ -7,5 +7,6 @@ COPY . ./
 RUN go build -o server
 
 FROM alpine:3.16.2
+WORKDIR /app
 COPY --from=builder /app/server ./
 ENTRYPOINT ["./server"]
