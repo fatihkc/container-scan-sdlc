@@ -43,7 +43,7 @@ jobs:
           image-ref: 'app'
           format: 'table'
           # template: '@/contrib/sarif.tpl'
-          output: 'trivy-results.sarif'
+          # output: 'trivy-results.sarif'
           severity: 'CRITICAL,HIGH,MEDIUM'
           exit-code: '1'
 
