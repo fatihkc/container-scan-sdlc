@@ -27,6 +27,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Login to  Docker Hub
+        uses: docker/login-action
+        with: 
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       # Adding Hadolint step here to lint Dockerfile
       - name: Lint Dockerfile with Hadolint
         uses: hadolint/hadolint-action@v1.6.0
@@ -35,7 +41,7 @@ jobs:
 
       - name: Build an image from Dockerfile
         run: |
-          docker build -t app .
+          docker build . --file Dockerfile --tag fatihkoc/golang-app
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
@@ -51,3 +57,7 @@ jobs:
       #   uses: github/codeql-action/upload-sarif@v2
       #   with:
       #     sarif_file: 'trivy-results.sarif'
+
+      - name: Push Docker image
+        run: |
+          docker push fatihkoc/golang-app
