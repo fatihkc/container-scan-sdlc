@@ -6,7 +6,7 @@ RUN go mod download
 COPY . ./
 RUN go build -o server
 
-FROM alpine:3.16.2
+FROM alpine:3.19.1
 WORKDIR /app
 COPY --from=builder /app/server ./
 ENTRYPOINT ["./server"]
